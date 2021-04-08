@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Botonera_Relays.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Nombre_App" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Botonera de Relays</Value>
+    </Setting>
+    <Setting Name="Disp_Default" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Caja</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
