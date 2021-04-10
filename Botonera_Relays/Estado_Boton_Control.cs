@@ -1,5 +1,4 @@
-﻿using Botonera_Relays;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 
@@ -64,12 +63,16 @@ namespace System.Windows.Forms
             // 
             // texto_colorComboBox
             // 
-            this.texto_colorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.texto_colorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.texto_colorComboBox.Color_Seleccionado = System.Drawing.Color.Empty;
             this.texto_colorComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.texto_colorComboBox.Location = new System.Drawing.Point(116, 108);
+            this.texto_colorComboBox.Mostrar_Boton = false;
             this.texto_colorComboBox.Name = "texto_colorComboBox";
+            this.texto_colorComboBox.Permitir_Color_Personalizado = false;
+            this.texto_colorComboBox.Permitir_Color_Sistema = false;
+            this.texto_colorComboBox.Permitir_Color_Transparente = false;
             this.texto_colorComboBox.Size = new System.Drawing.Size(278, 24);
             this.texto_colorComboBox.TabIndex = 7;
             this.texto_colorComboBox.Color_Cambio += new System.EventHandler(this.Forzar_Cambio_Estado);
@@ -85,12 +88,16 @@ namespace System.Windows.Forms
             // 
             // fondo_colorComboBox
             // 
-            this.fondo_colorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.fondo_colorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fondo_colorComboBox.Color_Seleccionado = System.Drawing.Color.Empty;
             this.fondo_colorComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fondo_colorComboBox.Location = new System.Drawing.Point(116, 79);
+            this.fondo_colorComboBox.Mostrar_Boton = false;
             this.fondo_colorComboBox.Name = "fondo_colorComboBox";
+            this.fondo_colorComboBox.Permitir_Color_Personalizado = false;
+            this.fondo_colorComboBox.Permitir_Color_Sistema = false;
+            this.fondo_colorComboBox.Permitir_Color_Transparente = false;
             this.fondo_colorComboBox.Size = new System.Drawing.Size(278, 24);
             this.fondo_colorComboBox.TabIndex = 5;
             this.fondo_colorComboBox.Color_Cambio += new System.EventHandler(this.Forzar_Cambio_Estado);
@@ -106,7 +113,7 @@ namespace System.Windows.Forms
             // 
             // imagen_comboBox
             // 
-            this.imagen_comboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.imagen_comboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.imagen_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.imagen_comboBox.FormattingEnabled = true;
@@ -127,7 +134,7 @@ namespace System.Windows.Forms
             // 
             // titulo_textBox
             // 
-            this.titulo_textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.titulo_textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.titulo_textBox.Location = new System.Drawing.Point(116, 21);
             this.titulo_textBox.MaxLength = 32;
@@ -262,35 +269,6 @@ namespace System.Windows.Forms
         private void Forzar_Cambio_Estado(object sender, EventArgs e)
         {
             On_Cambio_Estado(e);
-        }
-    }
-
-    public class Estado_Boton
-    {
-        public string Titulo;
-        public string Imagen;
-        public Keys Tecla;
-        public Color Fondo;
-        public Color Texto;
-
-        public Estado_Boton(string TITULO, string IMAGEN, Keys TECLA, Color FONDO, Color TEXTO)
-        {
-            Titulo = TITULO;
-            Imagen = IMAGEN;
-            Tecla = TECLA;
-            Fondo = FONDO;
-            Texto = TEXTO;
-        }
-
-        public Estado_Boton(string TITULO, string IMAGEN, Color FONDO, Color TEXTO) : this(TITULO, IMAGEN, Keys.None, FONDO, TEXTO)
-        { }
-
-        public Estado_Boton(string TITULO, Color FONDO, Color TEXTO) : this(TITULO, "", Keys.None, FONDO, TEXTO)
-        { }
-
-        public string Archivo_Imagen()
-        {
-            return Application.StartupPath + Configuracion.Directorio_Imagenes + @"\" + Imagen;
         }
     }
 }

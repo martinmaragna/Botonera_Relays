@@ -1,15 +1,12 @@
-﻿using Botonera_Relays;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Text.Json.Serialization;
 using System.IO;
-using System.Text.Json;
 using System.Net.Sockets;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace Botonera_Relays
+namespace System.Windows.Forms
 {
     public enum Relay
     {
@@ -19,15 +16,47 @@ namespace Botonera_Relays
         Relay_4 = 3
     }
 
+    public class Estado_Boton
+    {
+        public string Titulo { get; set; }
+        public string Imagen { get; set; }
+        public Keys Tecla { get; set; }
+        public Color Fondo { get; set; }
+        public Color Texto { get; set; }
+
+        public Estado_Boton(string TITULO, string IMAGEN, Keys TECLA, Color FONDO, Color TEXTO)
+        {
+            Titulo = TITULO;
+            Imagen = IMAGEN;
+            Tecla = TECLA;
+            Fondo = FONDO;
+            Texto = TEXTO;
+        }
+
+        public Estado_Boton(string TITULO, string IMAGEN, Color FONDO, Color TEXTO) : this(TITULO, IMAGEN, Keys.None, FONDO, TEXTO)
+        { }
+
+        public Estado_Boton(string TITULO, Color FONDO, Color TEXTO) : this(TITULO, "", Keys.None, FONDO, TEXTO)
+        { }
+
+        public Estado_Boton() : this("", "", Keys.None, Color.Empty, Color.Empty)
+        { }
+
+        public string Archivo_Imagen()
+        {
+            return Application.StartupPath + Configuracion.Directorio_Imagenes + @"\" + Imagen;
+        }
+    }
+
     static public class Configuracion
     {
+        static public bool Modo_Demo = false;
         static public string Titulo_App = "Botonera de Relays v" + Application.ProductVersion.Trim('.', '0');
         static public DataGridViewCellStyle Estilo_Normal = new DataGridViewCellStyle() { BackColor = Color.WhiteSmoke, SelectionBackColor = Color.DimGray, ForeColor = Color.Black, SelectionForeColor = Color.White };
         static public Propiedades_DataGridView DataGridView_Default = new Propiedades_DataGridView(Color.FromArgb(32, 32, 32), Estilo_Normal);
         static public Propiedades_Columnas_Editables Columna_No_Editable = new Propiedades_Columnas_Editables();
         static public string Directorio_Imagenes = @"\Imagenes";
         static public string Filtro_Imagenes = "*.png";
-
         static public string Extension_Archivo_Dispositivos = "json";
         static public string Archivo_Dispositivos = "Dispositivos." + Extension_Archivo_Dispositivos;
         static public List<Modulo_Dispositivo> Dispositivos = new List<Modulo_Dispositivo> { };
@@ -39,16 +68,31 @@ namespace Botonera_Relays
         {
             File.WriteAllText(ARCHIVO, JsonSerializer.Serialize(DISPOSITIVOS, new JsonSerializerOptions() { WriteIndented = true }));
         }
-
         static public string Extension_Archivo_Botones = "json";
         static public string Archivo_Botones = "Botones." + Extension_Archivo_Botones;
-        static public List<Boton_Relay> Obtener_Botones(string ARCHIVO)
+        static public List<Modulo_Boton> Obtener_Botones(string ARCHIVO)
         {
-            return JsonSerializer.Deserialize<List<Boton_Relay>>(File.ReadAllText(ARCHIVO));
+            JsonSerializerOptions __OPCIONES = new JsonSerializerOptions() { WriteIndented = true, Converters = { new Color_JsonConverter() } };
+            return JsonSerializer.Deserialize<List<Modulo_Boton>>(File.ReadAllText(ARCHIVO), __OPCIONES);
         }
-        static public void Guardar_Botones(string ARCHIVO, List<Boton_Relay> BOTONES)
+        static public void Guardar_Botones(string ARCHIVO, List<Modulo_Boton> BOTONES)
         {
-            File.WriteAllText(ARCHIVO, JsonSerializer.Serialize(BOTONES, new JsonSerializerOptions() { WriteIndented = true }));
+            JsonSerializerOptions __OPCIONES = new JsonSerializerOptions() { WriteIndented = true, Converters = { new Color_JsonConverter() } };
+
+            File.WriteAllText(ARCHIVO, JsonSerializer.Serialize(BOTONES, __OPCIONES));
+        }
+        
+    }
+    public class Color_JsonConverter : JsonConverter<Color>
+    {
+        public override Color Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            return Color.FromName(reader.GetString());
+        }
+
+        public override void Write(Utf8JsonWriter writer, Color value, JsonSerializerOptions options)
+        {
+            writer.WriteStringValue(value.Name);
         }
     }
 
@@ -73,6 +117,7 @@ namespace Botonera_Relays
         }
 
     }
+
     public class Modulo_Dispositivo : IDetallable
     {
         static public byte[] R1_O = { 0xA0, 0x01, 0x01, 0xA2 };
@@ -127,6 +172,11 @@ namespace Botonera_Relays
 
         public Modulo_Dispositivo() : this("", "192.168.1.1", 8080)
         {
+        }
+
+        public override string ToString()
+        {
+            return Nombre + " (" + Direccion + ")";
         }
 
         public string Estado_string()
@@ -189,13 +239,16 @@ namespace Botonera_Relays
         {
             try
             {
-                Socket __SOCALO = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                __SOCALO.Connect(Direccion, Puerto);
-                __SOCALO.Send(Obtener_Trama(RELAY, ESTADO));
-                __SOCALO.Close();
+                if (!Configuracion.Modo_Demo)
+                {
+                    Socket __SOCALO = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    __SOCALO.Connect(Direccion, Puerto);
+                    __SOCALO.Send(Obtener_Trama(RELAY, ESTADO));
+                    __SOCALO.Close();
+                }
                 Estado = true;
             }
-            catch (Exception A)
+            catch (Exception)
             {
                 Estado = false;
             }
@@ -206,12 +259,15 @@ namespace Botonera_Relays
         {
             try
             {
-                Socket __SOCALO = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                __SOCALO.Connect(Direccion, Puerto);
-                __SOCALO.Close();
+                if (!Configuracion.Modo_Demo)
+                {
+                    Socket __SOCALO = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    __SOCALO.Connect(Direccion, Puerto);
+                    __SOCALO.Close();
+                }
                 Estado = true;
             }
-            catch (Exception A)
+            catch (Exception)
             {
                 Estado = false;
             }
@@ -249,11 +305,7 @@ namespace Botonera_Relays
         }
         [JsonIgnore]
         public int Indice_Fila { get; set; }
-        public override string ToString()
-        {
-            return Nombre + " (" + Direccion + ")";
-        }
-
+        
         public string Obtener_Elemento()
         {
             return "El Dispositivo: " + ToString();
@@ -327,19 +379,48 @@ namespace Botonera_Relays
             return MemberwiseClone();
         }
     }
-}
 
-namespace System.Windows.Forms
-{
+    public class Modulo_Boton
+    {
+        public string Nombre { get; set; }
+        public string Dispositivo { get; set; }
+        public Relay Relay { get; set; }
+        public Size Tamanio { get; set; }
+        public Point Ubicacion { get; set; }
+        public Estado_Boton Desactivado { get; set; }
+        public Estado_Boton Activado { get; set; }
+
+        public Modulo_Boton(string NOMBRE, string DISPOSITIVO, Relay RELAY, Size TAMANIO, Point UBICACION, Estado_Boton DESACTIVADO, Estado_Boton ACTIVADO)
+        {
+            Nombre = NOMBRE;
+            Dispositivo = DISPOSITIVO;
+            Relay = RELAY;
+            Tamanio = TAMANIO;
+            Ubicacion = UBICACION;
+            Desactivado = DESACTIVADO;
+            Activado = ACTIVADO;
+        }
+
+        public Modulo_Boton() : this("", "", Relay.Relay_1, new Size(100, 100), new Point(0, 0), new Estado_Boton("OFF", Color.Empty, Color.Empty), new Estado_Boton("ON", Color.Empty, Color.Empty)) { }
+
+        public object Clone()
+        {
+            return new Modulo_Boton(Nombre, Dispositivo, Relay, Tamanio, Ubicacion, Desactivado, Activado);
+        }
+    }
+
     public class Boton_Relay : Button_Key
     {
         static public Estado_Boton Desconectado = new Estado_Boton("OFFLINE", Color.Gray, Color.DarkGray);
+        static public Estado_Boton Error = new Estado_Boton("ERROR", Color.Maroon, Color.DarkGray);
         public BackgroundWorker Subproceso = new BackgroundWorker();
         public Modulo_Dispositivo Dispositivo = null;
         public Relay Relay = Relay.Relay_1;
         public bool Estado = false;
         public Estado_Boton Desactivado = new Estado_Boton("OFF", Color.Empty, Color.Empty);
         public Estado_Boton Activado = new Estado_Boton("ON", Color.Empty, Color.Empty);
+        [DefaultValue(false)]
+        public bool Modo_Demo { get; set; } = false;
 
         protected override Size DefaultSize
         {
@@ -349,15 +430,48 @@ namespace System.Windows.Forms
             }
         }
 
-        [DefaultValue(false)]
-        public bool Modo_Demo { get; set; } = false;
-
-        public Boton_Relay()
+        public Boton_Relay(Modulo_Boton MODULO, ContextMenuStrip MENU)
         {
             UseVisualStyleBackColor = true;
             TextImageRelation = TextImageRelation.ImageAboveText;
             Subproceso.DoWork += Subproceso_DoWork;
             Subproceso.RunWorkerCompleted += Subproceso_RunWorkerCompleted;
+            ContextMenuStrip = MENU;
+            Cargar_Modulo(MODULO);
+        }
+
+        public Boton_Relay() : this(new Modulo_Boton(), null) { }
+
+        public void Cargar_Modulo(Modulo_Boton BOTON)
+        {
+            Name = BOTON.Nombre;
+            Dispositivo = null;
+            foreach (Modulo_Dispositivo X in Configuracion.Dispositivos)
+            {
+                if (X.Nombre == BOTON.Dispositivo)
+                {
+                    Dispositivo = X;
+                }
+            }
+            Relay = BOTON.Relay;
+            Estado = false;
+            Size = BOTON.Tamanio;
+            Location = BOTON.Ubicacion;
+            Desactivado = BOTON.Desactivado;
+            Activado = BOTON.Activado;
+            Aplicar_Estado();
+        }
+
+        public Modulo_Boton Obtener_Modulo()
+        {
+            if (Dispositivo != null)
+            {
+                return new Modulo_Boton(Name, Dispositivo.Nombre, Relay, Size, Location, Desactivado, Activado);
+            }
+            else
+            {
+                return new Modulo_Boton(Name, "", Relay, Size, Location, Desactivado, Activado);
+            }
         }
 
         private void Subproceso_DoWork(object sender, DoWorkEventArgs e)
@@ -429,7 +543,12 @@ namespace System.Windows.Forms
 
         public void Aplicar_Estado()
         {
-            if (Dispositivo != null && !Dispositivo.Estado)
+            if (Dispositivo == null)
+            {
+                Estado = false;
+                Aplicar_Estado(Error);
+            }
+            else if (!Dispositivo.Estado)
             {
                 Estado = false;
                 Aplicar_Estado(Desconectado);

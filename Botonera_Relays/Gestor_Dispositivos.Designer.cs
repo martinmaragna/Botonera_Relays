@@ -55,7 +55,7 @@ namespace Botonera_Relays
             this.cargar_button_Key.Text = "Cargar Archivo (F5)";
             this.cargar_button_Key.Texto = "Cargar Archivo";
             this.cargar_button_Key.UseVisualStyleBackColor = true;
-            this.cargar_button_Key.Click += new System.EventHandler(this.cargar_button_Key_Click);
+            this.cargar_button_Key.Click += new System.EventHandler(this.Cargar_button_Key_Click);
             // 
             // limpiar_button_Key
             // 
@@ -69,7 +69,7 @@ namespace Botonera_Relays
             this.limpiar_button_Key.Text = "Limpiar (F4)";
             this.limpiar_button_Key.Texto = "Limpiar";
             this.limpiar_button_Key.UseVisualStyleBackColor = true;
-            this.limpiar_button_Key.Click += new System.EventHandler(this.limpiar_button_Key_Click);
+            this.limpiar_button_Key.Click += new System.EventHandler(this.Limpiar_button_Key_Click);
             // 
             // eliminar_button_Key
             // 
@@ -83,7 +83,7 @@ namespace Botonera_Relays
             this.eliminar_button_Key.Text = "Eliminar (F3)";
             this.eliminar_button_Key.Texto = "Eliminar";
             this.eliminar_button_Key.UseVisualStyleBackColor = true;
-            this.eliminar_button_Key.Click += new System.EventHandler(this.eliminar_button_Key_Click);
+            this.eliminar_button_Key.Click += new System.EventHandler(this.Eliminar_button_Key_Click);
             // 
             // modificar_button_Key
             // 
@@ -97,7 +97,7 @@ namespace Botonera_Relays
             this.modificar_button_Key.Text = "Modificar (F2)";
             this.modificar_button_Key.Texto = "Modificar";
             this.modificar_button_Key.UseVisualStyleBackColor = true;
-            this.modificar_button_Key.Click += new System.EventHandler(this.modificar_button_Key_Click);
+            this.modificar_button_Key.Click += new System.EventHandler(this.Modificar_button_Key_Click);
             // 
             // agregar_button_Key
             // 
@@ -111,7 +111,7 @@ namespace Botonera_Relays
             this.agregar_button_Key.Text = "Agregar (F1)";
             this.agregar_button_Key.Texto = "Agregar";
             this.agregar_button_Key.UseVisualStyleBackColor = true;
-            this.agregar_button_Key.Click += new System.EventHandler(this.agregar_button_Key_Click);
+            this.agregar_button_Key.Click += new System.EventHandler(this.Agregar_button_Key_Click);
             // 
             // dispositivos_detalleDataGridView
             // 
@@ -145,7 +145,7 @@ namespace Botonera_Relays
             this.guardar_button_Key.Text = "Guardar Cambios (F6)";
             this.guardar_button_Key.Texto = "Guardar Cambios";
             this.guardar_button_Key.UseVisualStyleBackColor = true;
-            this.guardar_button_Key.Click += new System.EventHandler(this.guardar_button_Key_Click);
+            this.guardar_button_Key.Click += new System.EventHandler(this.Guardar_button_Key_Click);
             // 
             // cancelar_button_Key
             // 

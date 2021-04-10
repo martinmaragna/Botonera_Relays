@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Botonera_Relays
@@ -18,7 +12,12 @@ namespace Botonera_Relays
             Text = Configuracion.Titulo_App;
             plantilla_panel.BackColor = Configuracion.DataGridView_Default.Color_Fondo_Trabajo;
             Mensajes.Modulos.Add(principal_messageForm);
-            Configuracion.Dispositivos = Configuracion.Obtener_Dispositivos(Configuracion.Archivo_Dispositivos);
+            cargar_openFileDialog.FileName = Configuracion.Archivo_Botones;
+            cargar_openFileDialog.DefaultExt = Configuracion.Extension_Archivo_Botones;
+            cargar_openFileDialog.Filter = "Archivos " + Configuracion.Extension_Archivo_Botones + "|*." + Configuracion.Extension_Archivo_Botones;
+            guardar_saveFileDialog.FileName = Configuracion.Archivo_Botones;
+            guardar_saveFileDialog.DefaultExt = Configuracion.Extension_Archivo_Botones;
+            guardar_saveFileDialog.Filter = "Archivos " + Configuracion.Extension_Archivo_Botones + "|*." + Configuracion.Extension_Archivo_Botones;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -38,7 +37,12 @@ namespace Botonera_Relays
 
         private void Principal_Shown(object sender, EventArgs e)
         {
-
+            Configuracion.Dispositivos = Configuracion.Obtener_Dispositivos(Configuracion.Archivo_Dispositivos);
+            List<Modulo_Boton> __BOTONES = Configuracion.Obtener_Botones(Configuracion.Archivo_Botones);
+            foreach (Modulo_Boton X in __BOTONES)
+            {
+                plantilla_panel.Controls.Add(new Boton_Relay(X, menu_contextMenuStrip));
+            }
         }
 
         private void Principal_FormClosing(object sender, FormClosingEventArgs e)
@@ -65,40 +69,22 @@ namespace Botonera_Relays
             Editor_Boton_Relay __EDITOR = new Editor_Boton_Relay();
             if (__EDITOR.ShowDialog() == DialogResult.OK)
             {
-                __EDITOR.Boton.ContextMenuStrip = menu_contextMenuStrip;
-                plantilla_panel.Controls.Add(__EDITOR.Boton);
+                Boton_Relay __CONTROL = new Boton_Relay(__EDITOR.Boton, menu_contextMenuStrip);
+                plantilla_panel.Controls.Add(__CONTROL);
             }
         }
 
-
-
-
-
-
-
-        private void agregar_boton_button_Key_Click(object sender, EventArgs e)
-        {
-            Editor_Boton_Relay __FORM = new Editor_Boton_Relay();
-            if (sender is Boton_Relay __BOTON)
-            {
-                __FORM.Boton = __BOTON;
-            }
-            if (__FORM.ShowDialog() == DialogResult.OK)
-            {
-                __FORM.Boton.ContextMenuStrip = menu_contextMenuStrip;
-                plantilla_panel.Controls.Add(__FORM.Boton);
-            }
-        }
-
-        private void duplicar_toolStripMenuItem_Click(object sender, EventArgs e)
+        private void Duplicar_toolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (menu_contextMenuStrip.SourceControl is Boton_Relay __BOTON)
             {
-                Editor_Boton_Relay __EDITOR = new Editor_Boton_Relay();
-                __EDITOR.Boton = __BOTON;
+                Editor_Boton_Relay __EDITOR = new Editor_Boton_Relay
+                {
+                    Boton = __BOTON.Obtener_Modulo()
+                };
                 if (__EDITOR.ShowDialog() == DialogResult.OK)
                 {
-                    plantilla_panel.Controls.Add(__EDITOR.Boton);
+                    plantilla_panel.Controls.Add(new Boton_Relay(__EDITOR.Boton, menu_contextMenuStrip));
                 }
             }
         }
@@ -107,12 +93,13 @@ namespace Botonera_Relays
         {
             if (menu_contextMenuStrip.SourceControl is Boton_Relay __BOTON)
             {
-                Editor_Boton_Relay __EDITOR = new Editor_Boton_Relay();
-                __EDITOR.Boton = __BOTON;
+                Editor_Boton_Relay __EDITOR = new Editor_Boton_Relay
+                {
+                    Boton = __BOTON.Obtener_Modulo()
+                };
                 if (__EDITOR.ShowDialog() == DialogResult.OK)
                 {
-                    plantilla_panel.Controls.Remove(__BOTON);
-                    plantilla_panel.Controls.Add(__EDITOR.Boton);
+                    __BOTON.Cargar_Modulo(__EDITOR.Boton);
                 }
             }
         }
@@ -125,7 +112,7 @@ namespace Botonera_Relays
             }
         }
 
-        private void verificar_ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Verificar_ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (menu_contextMenuStrip.SourceControl is Boton_Relay __BOTON)
             {
@@ -133,17 +120,32 @@ namespace Botonera_Relays
             }
         }
 
-        private void guardar_toolStripButton_Key_Click(object sender, EventArgs e)
+        private void Guardar_toolStripButton_Key_Click(object sender, EventArgs e)
         {
-            List<Boton_Relay> __BOTONES = new List<Boton_Relay>();
-            foreach(Control X in plantilla_panel.Controls)
+            if (guardar_saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if(X is Boton_Relay)
+                List<Modulo_Boton> __BOTONES = new List<Modulo_Boton>();
+                foreach (Control C in plantilla_panel.Controls)
                 {
-                    __BOTONES.Add((Boton_Relay)X);
+                    if (C is Boton_Relay R)
+                    {
+                        __BOTONES.Add(R.Obtener_Modulo());
+                    }
+                }
+                Configuracion.Guardar_Botones(guardar_saveFileDialog.FileName, __BOTONES);
+            }
+        }
+
+        private void Cargar_toolStripButton_Key_Click(object sender, EventArgs e)
+        {
+            if (cargar_openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                List<Modulo_Boton> __BOTONES = Configuracion.Obtener_Botones(cargar_openFileDialog.FileName);
+                foreach (Modulo_Boton X in __BOTONES)
+                {
+                    plantilla_panel.Controls.Add(new Boton_Relay(X, menu_contextMenuStrip));
                 }
             }
-            Configuracion.Guardar_Botones(Configuracion.Archivo_Botones, __BOTONES);
         }
     }
 }

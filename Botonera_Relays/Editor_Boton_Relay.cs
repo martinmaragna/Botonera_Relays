@@ -6,11 +6,14 @@ namespace Botonera_Relays
 {
     public partial class Editor_Boton_Relay : Form
     {
-        public Boton_Relay Boton = new Boton_Relay();
+        public Modulo_Boton Boton = new Modulo_Boton();
 
         public Editor_Boton_Relay()
         {
             InitializeComponent();
+            demo_boton_Relay.Dispositivo = new Modulo_Dispositivo() { Estado = true };
+            demo_boton_Relay.Modo_Demo = true;
+            dispositivo_comboBox.DisplayMember = "Nombre";
             dispositivo_comboBox.Items.AddRange(Configuracion.Dispositivos.ToArray());
             relay_comboBox.Items.AddRange(Enum.GetNames(typeof(Relay)));
             desactivado_estado_Boton_Control.Cargar_Imagenes();
@@ -34,36 +37,35 @@ namespace Botonera_Relays
 
         private void Leer_Modulo(object sender, EventArgs e)
         {
-            nombre_textBox.Text = Boton.Name;
-            if(Boton.Dispositivo != null)
+            nombre_textBox.Text = Boton.Nombre;
+            if (Boton.Dispositivo != null)
             {
-                dispositivo_comboBox.Text = Boton.Dispositivo.ToString();
+                dispositivo_comboBox.Text = Boton.Dispositivo;
             }
-            relay_comboBox.SelectedIndex = (int)Boton.Relay ;
-            ancho_intBox.Valor = Boton.Size.Width;
-            alto_intBox.Valor = Boton.Size.Height;
-            x_intBox.Valor = Boton.Location.X;
-            y_intBox.Valor = Boton.Location.Y;
+            relay_comboBox.SelectedIndex = (int)Boton.Relay;
+            ancho_intBox.Valor = Boton.Tamanio.Width;
+            alto_intBox.Valor = Boton.Tamanio.Height;
+            x_intBox.Valor = Boton.Ubicacion.X;
+            y_intBox.Valor = Boton.Ubicacion.Y;
             desactivado_estado_Boton_Control.Cargar(Boton.Desactivado);
             activado_estado_Boton_Control.Cargar(Boton.Activado);
         }
 
         private void Guardar_Modulo(object sender, EventArgs e)
         {
-            Boton.Name = nombre_textBox.Text;
-            Boton.Dispositivo = Configuracion.Dispositivos[dispositivo_comboBox.SelectedIndex];
+            Boton.Nombre = nombre_textBox.Text;
+            Boton.Dispositivo = Configuracion.Dispositivos[dispositivo_comboBox.SelectedIndex].Nombre;
             Boton.Relay =((Relay)relay_comboBox.SelectedIndex);
             if (ancho_intBox.Ok && alto_intBox.Ok)
             {
-                Boton.Size = new Size(ancho_intBox.Valor, alto_intBox.Valor);
+                Boton.Tamanio = new Size(ancho_intBox.Valor, alto_intBox.Valor);
             }
             if (x_intBox.Ok && y_intBox.Ok)
             {
-                Boton.Location = new Point(x_intBox.Valor, y_intBox.Valor);
+                Boton.Ubicacion = new Point(x_intBox.Valor, y_intBox.Valor);
             }
             Boton.Desactivado = desactivado_estado_Boton_Control.Obtener_Estado();
             Boton.Activado = activado_estado_Boton_Control.Obtener_Estado();
-            Boton.Aplicar_Estado();
         }
 
         private void Boton_Aceptar(object sender, EventArgs e)

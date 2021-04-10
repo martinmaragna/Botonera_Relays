@@ -40,8 +40,10 @@ namespace Botonera_Relays
 
         private void Agregar_Dispositivo(object sender, DetalleDataGridViewEventArgs e)
         {
-            Editor_Dispositivo __EDITOR = new Editor_Dispositivo();
-            __EDITOR.Modulo = (Modulo_Dispositivo)e.Plantilla.Clone();
+            Editor_Dispositivo __EDITOR = new Editor_Dispositivo
+            {
+                Modulo = (Modulo_Dispositivo)e.Plantilla.Clone()
+            };
             if (__EDITOR.ShowDialog() == DialogResult.OK)
             {
                 e.Detalle.Add((Modulo_Dispositivo)__EDITOR.Modulo.Clone());
@@ -53,8 +55,10 @@ namespace Botonera_Relays
 
         private void Modificar_Dispositivo(object sender, DetalleDataGridViewEventArgs e)
         {
-            Editor_Dispositivo __EDITOR = new Editor_Dispositivo();
-            __EDITOR.Modulo = (Modulo_Dispositivo)e.Detalle[0].Clone();
+            Editor_Dispositivo __EDITOR = new Editor_Dispositivo
+            {
+                Modulo = (Modulo_Dispositivo)e.Detalle[0].Clone()
+            };
             if (__EDITOR.ShowDialog() == DialogResult.OK)
             {
                 e.Detalle[0] = (Modulo_Dispositivo)__EDITOR.Modulo.Clone();
@@ -64,27 +68,27 @@ namespace Botonera_Relays
             e.Aplicar_Detalle = false;
         }
 
-        private void agregar_button_Key_Click(object sender, EventArgs e)
+        private void Agregar_button_Key_Click(object sender, EventArgs e)
         {
             dispositivos_detalleDataGridView.Agregar_Detalle(sender, e);
         }
 
-        private void modificar_button_Key_Click(object sender, EventArgs e)
+        private void Modificar_button_Key_Click(object sender, EventArgs e)
         {
             dispositivos_detalleDataGridView.Modificar_Detalle(sender, e);
         }
 
-        private void eliminar_button_Key_Click(object sender, EventArgs e)
+        private void Eliminar_button_Key_Click(object sender, EventArgs e)
         {
             dispositivos_detalleDataGridView.Eliminar_Detalle(sender, e);
         }
 
-        private void limpiar_button_Key_Click(object sender, EventArgs e)
+        private void Limpiar_button_Key_Click(object sender, EventArgs e)
         {
             dispositivos_detalleDataGridView.Limpiar_Detalle(sender, e);
         }
 
-        private void cargar_button_Key_Click(object sender, EventArgs e)
+        private void Cargar_button_Key_Click(object sender, EventArgs e)
         {
             if (cargar_openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -93,7 +97,7 @@ namespace Botonera_Relays
             }
         }
 
-        private void guardar_button_Key_Click(object sender, EventArgs e)
+        private void Guardar_button_Key_Click(object sender, EventArgs e)
         {
             if (guardar_saveFileDialog.ShowDialog() == DialogResult.OK)
             {

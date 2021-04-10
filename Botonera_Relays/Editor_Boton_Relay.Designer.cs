@@ -44,9 +44,9 @@ namespace Botonera_Relays
             this.relay_label = new System.Windows.Forms.Label();
             this.relay_comboBox = new System.Windows.Forms.ComboBox();
             this.demo_flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.demo_boton_Relay = new System.Windows.Forms.Boton_Relay();
             this.nombre_label = new System.Windows.Forms.Label();
             this.nombre_textBox = new System.Windows.Forms.TextBox();
-            this.demo_boton_Relay = new System.Windows.Forms.Boton_Relay();
             this.activado_estado_Boton_Control = new System.Windows.Forms.Estado_Boton_Control();
             this.desactivado_estado_Boton_Control = new System.Windows.Forms.Estado_Boton_Control();
             this.demo_flowLayoutPanel.SuspendLayout();
@@ -229,6 +229,19 @@ namespace Botonera_Relays
             this.demo_flowLayoutPanel.Size = new System.Drawing.Size(374, 391);
             this.demo_flowLayoutPanel.TabIndex = 16;
             // 
+            // demo_boton_Relay
+            // 
+            this.demo_boton_Relay.BackColor = System.Drawing.Color.Maroon;
+            this.demo_boton_Relay.ForeColor = System.Drawing.Color.DarkGray;
+            this.demo_boton_Relay.Location = new System.Drawing.Point(13, 13);
+            this.demo_boton_Relay.Name = "demo_boton_Relay";
+            this.demo_boton_Relay.Size = new System.Drawing.Size(100, 100);
+            this.demo_boton_Relay.TabIndex = 0;
+            this.demo_boton_Relay.Text = "ERROR";
+            this.demo_boton_Relay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.demo_boton_Relay.Texto = "ERROR";
+            this.demo_boton_Relay.UseVisualStyleBackColor = true;
+            // 
             // nombre_label
             // 
             this.nombre_label.AutoSize = true;
@@ -245,16 +258,6 @@ namespace Botonera_Relays
             this.nombre_textBox.Name = "nombre_textBox";
             this.nombre_textBox.Size = new System.Drawing.Size(277, 22);
             this.nombre_textBox.TabIndex = 1;
-            // 
-            // demo_boton_Relay
-            // 
-            this.demo_boton_Relay.Location = new System.Drawing.Point(13, 13);
-            this.demo_boton_Relay.Modo_Demo = true;
-            this.demo_boton_Relay.Name = "demo_boton_Relay";
-            this.demo_boton_Relay.Size = new System.Drawing.Size(100, 100);
-            this.demo_boton_Relay.TabIndex = 0;
-            this.demo_boton_Relay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.demo_boton_Relay.UseVisualStyleBackColor = true;
             // 
             // activado_estado_Boton_Control
             // 
