@@ -37,15 +37,17 @@ namespace Botonera_Relays
             this.eliminar_toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verificar_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.botones_toolStrip = new System.Windows.Forms.ToolStrip();
-            this.gestor_disp_toolStripButton = new System.Windows.Forms.ToolStripButton_Key();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.agregar_boton_toolStripButton = new System.Windows.Forms.ToolStripButton_Key();
-            this.salir_toolStripButton = new System.Windows.Forms.ToolStripButton_Key();
+            this.salir_toolStripButton_Key = new System.Windows.Forms.ToolStripButton_Key();
+            this.agregar_boton_toolStripButton_Key = new System.Windows.Forms.ToolStripButton_Key();
+            this.separador_toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.gestor_disp_toolStripButton_Key = new System.Windows.Forms.ToolStripButton_Key();
             this.guardar_toolStripButton_Key = new System.Windows.Forms.ToolStripButton_Key();
             this.cargar_toolStripButton_Key = new System.Windows.Forms.ToolStripButton_Key();
+            this.actualizar_toolStripButton_Key = new System.Windows.Forms.ToolStripButton_Key();
             this.plantilla_panel = new System.Windows.Forms.Panel();
             this.cargar_openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.guardar_saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.refrescador_backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.menu_contextMenuStrip.SuspendLayout();
             this.botones_toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -93,54 +95,54 @@ namespace Botonera_Relays
             this.botones_toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.botones_toolStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.botones_toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gestor_disp_toolStripButton,
-            this.toolStripSeparator1,
-            this.agregar_boton_toolStripButton,
-            this.salir_toolStripButton,
+            this.salir_toolStripButton_Key,
+            this.agregar_boton_toolStripButton_Key,
+            this.separador_toolStripSeparator,
+            this.gestor_disp_toolStripButton_Key,
             this.guardar_toolStripButton_Key,
-            this.cargar_toolStripButton_Key});
+            this.cargar_toolStripButton_Key,
+            this.actualizar_toolStripButton_Key});
             this.botones_toolStrip.Location = new System.Drawing.Point(0, 0);
             this.botones_toolStrip.Name = "botones_toolStrip";
             this.botones_toolStrip.Size = new System.Drawing.Size(688, 25);
             this.botones_toolStrip.TabIndex = 0;
-            this.botones_toolStrip.Text = "toolStrip1";
             // 
-            // gestor_disp_toolStripButton
+            // salir_toolStripButton_Key
             // 
-            this.gestor_disp_toolStripButton.Mostrar_Tecla = true;
-            this.gestor_disp_toolStripButton.Name = "gestor_disp_toolStripButton";
-            this.gestor_disp_toolStripButton.Size = new System.Drawing.Size(156, 22);
-            this.gestor_disp_toolStripButton.Tecla = System.Windows.Forms.Keys.F12;
-            this.gestor_disp_toolStripButton.Text = "Gestor de Dispositivos (F12)";
-            this.gestor_disp_toolStripButton.Texto = "Gestor de Dispositivos";
-            this.gestor_disp_toolStripButton.Click += new System.EventHandler(this.Gestor_disp_toolStripButton_Click);
+            this.salir_toolStripButton_Key.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.salir_toolStripButton_Key.Mostrar_Tecla = true;
+            this.salir_toolStripButton_Key.Name = "salir_toolStripButton_Key";
+            this.salir_toolStripButton_Key.Size = new System.Drawing.Size(61, 22);
+            this.salir_toolStripButton_Key.Tecla = System.Windows.Forms.Keys.Escape;
+            this.salir_toolStripButton_Key.Text = "Salir (Esc)";
+            this.salir_toolStripButton_Key.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.salir_toolStripButton_Key.Texto = "Salir";
+            this.salir_toolStripButton_Key.Click += new System.EventHandler(this.Salir_toolStripButton_Click);
             // 
-            // toolStripSeparator1
+            // agregar_boton_toolStripButton_Key
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.agregar_boton_toolStripButton_Key.Mostrar_Tecla = true;
+            this.agregar_boton_toolStripButton_Key.Name = "agregar_boton_toolStripButton_Key";
+            this.agregar_boton_toolStripButton_Key.Size = new System.Drawing.Size(111, 22);
+            this.agregar_boton_toolStripButton_Key.Tecla = System.Windows.Forms.Keys.F1;
+            this.agregar_boton_toolStripButton_Key.Text = "Agregar Boton (F1)";
+            this.agregar_boton_toolStripButton_Key.Texto = "Agregar Boton";
+            this.agregar_boton_toolStripButton_Key.Click += new System.EventHandler(this.Agregar_boton_toolStripButton_Click);
             // 
-            // agregar_boton_toolStripButton
+            // separador_toolStripSeparator
             // 
-            this.agregar_boton_toolStripButton.Mostrar_Tecla = true;
-            this.agregar_boton_toolStripButton.Name = "agregar_boton_toolStripButton";
-            this.agregar_boton_toolStripButton.Size = new System.Drawing.Size(111, 22);
-            this.agregar_boton_toolStripButton.Tecla = System.Windows.Forms.Keys.F1;
-            this.agregar_boton_toolStripButton.Text = "Agregar Boton (F1)";
-            this.agregar_boton_toolStripButton.Texto = "Agregar Boton";
-            this.agregar_boton_toolStripButton.Click += new System.EventHandler(this.Agregar_boton_toolStripButton_Click);
+            this.separador_toolStripSeparator.Name = "separador_toolStripSeparator";
+            this.separador_toolStripSeparator.Size = new System.Drawing.Size(6, 25);
             // 
-            // salir_toolStripButton
+            // gestor_disp_toolStripButton_Key
             // 
-            this.salir_toolStripButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.salir_toolStripButton.Mostrar_Tecla = true;
-            this.salir_toolStripButton.Name = "salir_toolStripButton";
-            this.salir_toolStripButton.Size = new System.Drawing.Size(61, 22);
-            this.salir_toolStripButton.Tecla = System.Windows.Forms.Keys.Escape;
-            this.salir_toolStripButton.Text = "Salir (Esc)";
-            this.salir_toolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.salir_toolStripButton.Texto = "Salir";
-            this.salir_toolStripButton.Click += new System.EventHandler(this.Salir_toolStripButton_Click);
+            this.gestor_disp_toolStripButton_Key.Mostrar_Tecla = true;
+            this.gestor_disp_toolStripButton_Key.Name = "gestor_disp_toolStripButton_Key";
+            this.gestor_disp_toolStripButton_Key.Size = new System.Drawing.Size(156, 22);
+            this.gestor_disp_toolStripButton_Key.Tecla = System.Windows.Forms.Keys.F12;
+            this.gestor_disp_toolStripButton_Key.Text = "Gestor de Dispositivos (F12)";
+            this.gestor_disp_toolStripButton_Key.Texto = "Gestor de Dispositivos";
+            this.gestor_disp_toolStripButton_Key.Click += new System.EventHandler(this.Gestor_disp_toolStripButton_Click);
             // 
             // guardar_toolStripButton_Key
             // 
@@ -162,6 +164,16 @@ namespace Botonera_Relays
             this.cargar_toolStripButton_Key.Texto = "Cargar Botones";
             this.cargar_toolStripButton_Key.Click += new System.EventHandler(this.Cargar_toolStripButton_Key_Click);
             // 
+            // actualizar_toolStripButton_Key
+            // 
+            this.actualizar_toolStripButton_Key.Mostrar_Tecla = true;
+            this.actualizar_toolStripButton_Key.Name = "actualizar_toolStripButton_Key";
+            this.actualizar_toolStripButton_Key.Size = new System.Drawing.Size(121, 19);
+            this.actualizar_toolStripButton_Key.Tecla = System.Windows.Forms.Keys.F12;
+            this.actualizar_toolStripButton_Key.Text = "Actualizar Todo (F12)";
+            this.actualizar_toolStripButton_Key.Texto = "Actualizar Todo";
+            this.actualizar_toolStripButton_Key.Click += new System.EventHandler(this.Actualizar_toolStripButton_Key_Click);
+            // 
             // plantilla_panel
             // 
             this.plantilla_panel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -178,6 +190,12 @@ namespace Botonera_Relays
             // guardar_saveFileDialog
             // 
             this.guardar_saveFileDialog.Title = "Guardar archivo con lista de botones";
+            // 
+            // refrescador_backgroundWorker
+            // 
+            this.refrescador_backgroundWorker.WorkerReportsProgress = true;
+            this.refrescador_backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Refrescador_backgroundWorker_DoWork);
+            this.refrescador_backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.Refrescador_backgroundWorker_ProgressChanged);
             // 
             // Principal
             // 
@@ -210,14 +228,16 @@ namespace Botonera_Relays
         private System.Windows.Forms.ToolStripMenuItem modificar_toolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminar_toolStripMenuItem;
         private System.Windows.Forms.ToolStrip botones_toolStrip;
-        private System.Windows.Forms.ToolStripButton_Key gestor_disp_toolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton_Key agregar_boton_toolStripButton;
-        private System.Windows.Forms.ToolStripButton_Key salir_toolStripButton;
+        private System.Windows.Forms.ToolStripButton_Key gestor_disp_toolStripButton_Key;
+        private System.Windows.Forms.ToolStripSeparator separador_toolStripSeparator;
+        private System.Windows.Forms.ToolStripButton_Key agregar_boton_toolStripButton_Key;
+        private System.Windows.Forms.ToolStripButton_Key salir_toolStripButton_Key;
         private System.Windows.Forms.ToolStripMenuItem verificar_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton_Key guardar_toolStripButton_Key;
         private System.Windows.Forms.ToolStripButton_Key cargar_toolStripButton_Key;
         private System.Windows.Forms.OpenFileDialog cargar_openFileDialog;
         private System.Windows.Forms.SaveFileDialog guardar_saveFileDialog;
+        private System.ComponentModel.BackgroundWorker refrescador_backgroundWorker;
+        private System.Windows.Forms.ToolStripButton_Key actualizar_toolStripButton_Key;
     }
 }

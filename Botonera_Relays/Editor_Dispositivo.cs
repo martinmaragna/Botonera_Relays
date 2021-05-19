@@ -6,7 +6,7 @@ namespace Botonera_Relays
     public partial class Editor_Dispositivo : Form
     {
         public Modulo_Dispositivo Modulo = new Modulo_Dispositivo("Dispo1", "192.168.0.100");
-        
+
         public Editor_Dispositivo()
         {
             InitializeComponent();

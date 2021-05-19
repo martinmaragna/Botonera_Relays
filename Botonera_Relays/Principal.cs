@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Botonera_Relays
@@ -22,11 +23,11 @@ namespace Botonera_Relays
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            foreach(object X in botones_toolStrip.Items)
+            foreach (object X in botones_toolStrip.Items)
             {
-                if(X is IControl_Key __CONTROL_KEY)
+                if (X is IControl_Key __CONTROL_KEY)
                 {
-                    if(__CONTROL_KEY.KeyClick(keyData))
+                    if (__CONTROL_KEY.KeyClick(keyData))
                     {
                         return false;
                     }
@@ -43,11 +44,12 @@ namespace Botonera_Relays
             {
                 plantilla_panel.Controls.Add(new Boton_Relay(X, menu_contextMenuStrip));
             }
+            refrescador_backgroundWorker.RunWorkerAsync();
         }
 
         private void Principal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(Mensajes.Pregunta_Cerrar_Formulario(sender, Text) != DialogResult.Yes)
+            if (Mensajes.Pregunta_Cerrar_Formulario(sender, Text) != DialogResult.Yes)
             {
                 e.Cancel = true;
             }
@@ -63,7 +65,7 @@ namespace Botonera_Relays
             Gestor_Dispositivos __FORMULARIO = new Gestor_Dispositivos();
             __FORMULARIO.ShowDialog();
         }
-        
+
         private void Agregar_boton_toolStripButton_Click(object sender, EventArgs e)
         {
             Editor_Boton_Relay __EDITOR = new Editor_Boton_Relay();
@@ -147,5 +149,33 @@ namespace Botonera_Relays
                 }
             }
         }
+
+        private void Actualizar_toolStripButton_Key_Click(object sender, EventArgs e)
+        {
+            refrescador_backgroundWorker.RunWorkerAsync();
+        }
+
+        private void Refrescador_backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (sender is BackgroundWorker __COMPONENT)
+            {
+                foreach (Boton_Relay X in plantilla_panel.Controls)
+                {
+                    X.Obtener_Estado_Sincrono();
+                    __COMPONENT.ReportProgress(X.TabIndex, X);
+                }
+            }
+        }
+
+        private void Refrescador_backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.UserState is Boton_Relay __BOTON)
+            {
+                __BOTON.Dispositivo.Subproceso_RunWorkerCompleted(sender, new RunWorkerCompletedEventArgs(__BOTON, null, false));
+                __BOTON.Aplicar_Estado();
+            }
+        }
+
+
     }
 }

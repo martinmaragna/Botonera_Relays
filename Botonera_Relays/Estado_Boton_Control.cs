@@ -63,10 +63,10 @@ namespace System.Windows.Forms
             // 
             // texto_colorComboBox
             // 
-            this.texto_colorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.texto_colorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right);
             this.texto_colorComboBox.Color_Seleccionado = System.Drawing.Color.Empty;
-            this.texto_colorComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.texto_colorComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.texto_colorComboBox.Location = new System.Drawing.Point(116, 108);
             this.texto_colorComboBox.Mostrar_Boton = false;
             this.texto_colorComboBox.Name = "texto_colorComboBox";
@@ -88,10 +88,10 @@ namespace System.Windows.Forms
             // 
             // fondo_colorComboBox
             // 
-            this.fondo_colorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fondo_colorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right);
             this.fondo_colorComboBox.Color_Seleccionado = System.Drawing.Color.Empty;
-            this.fondo_colorComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fondo_colorComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.fondo_colorComboBox.Location = new System.Drawing.Point(116, 79);
             this.fondo_colorComboBox.Mostrar_Boton = false;
             this.fondo_colorComboBox.Name = "fondo_colorComboBox";
@@ -113,8 +113,8 @@ namespace System.Windows.Forms
             // 
             // imagen_comboBox
             // 
-            this.imagen_comboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.imagen_comboBox.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right);
             this.imagen_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.imagen_comboBox.FormattingEnabled = true;
             this.imagen_comboBox.Location = new System.Drawing.Point(116, 49);
@@ -134,8 +134,8 @@ namespace System.Windows.Forms
             // 
             // titulo_textBox
             // 
-            this.titulo_textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.titulo_textBox.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right);
             this.titulo_textBox.Location = new System.Drawing.Point(116, 21);
             this.titulo_textBox.MaxLength = 32;
             this.titulo_textBox.Name = "titulo_textBox";
@@ -157,7 +157,7 @@ namespace System.Windows.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grupo_groupBox);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.Name = "Estado_Boton_Control";
             this.Size = new System.Drawing.Size(400, 140);
             this.grupo_groupBox.ResumeLayout(false);

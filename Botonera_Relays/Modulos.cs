@@ -48,41 +48,41 @@ namespace System.Windows.Forms
         }
     }
 
-    static public class Configuracion
+    public static class Configuracion
     {
-        static public bool Modo_Demo = false;
-        static public string Titulo_App = "Botonera de Relays v" + Application.ProductVersion.Trim('.', '0');
-        static public DataGridViewCellStyle Estilo_Normal = new DataGridViewCellStyle() { BackColor = Color.WhiteSmoke, SelectionBackColor = Color.DimGray, ForeColor = Color.Black, SelectionForeColor = Color.White };
-        static public Propiedades_DataGridView DataGridView_Default = new Propiedades_DataGridView(Color.FromArgb(32, 32, 32), Estilo_Normal);
-        static public Propiedades_Columnas_Editables Columna_No_Editable = new Propiedades_Columnas_Editables();
-        static public string Directorio_Imagenes = @"\Imagenes";
-        static public string Filtro_Imagenes = "*.png";
-        static public string Extension_Archivo_Dispositivos = "json";
-        static public string Archivo_Dispositivos = "Dispositivos." + Extension_Archivo_Dispositivos;
-        static public List<Modulo_Dispositivo> Dispositivos = new List<Modulo_Dispositivo> { };
-        static public List<Modulo_Dispositivo> Obtener_Dispositivos(string ARCHIVO)
+        public static bool Modo_Demo = false;
+        public static string Titulo_App = "Botonera de Relays v" + Application.ProductVersion.Trim('.', '0');
+        public static DataGridViewCellStyle Estilo_Normal = new DataGridViewCellStyle() { BackColor = Color.WhiteSmoke, SelectionBackColor = Color.DimGray, ForeColor = Color.Black, SelectionForeColor = Color.White };
+        public static Propiedades_DataGridView DataGridView_Default = new Propiedades_DataGridView(Color.FromArgb(32, 32, 32), Estilo_Normal);
+        public static Propiedades_Columnas_Editables Columna_No_Editable = new Propiedades_Columnas_Editables();
+        public static string Directorio_Imagenes = @"\Imagenes";
+        public static string Filtro_Imagenes = "*.png";
+        public static string Extension_Archivo_Dispositivos = "json";
+        public static string Archivo_Dispositivos = "Dispositivos." + Extension_Archivo_Dispositivos;
+        public static List<Modulo_Dispositivo> Dispositivos = new List<Modulo_Dispositivo> { };
+        public static List<Modulo_Dispositivo> Obtener_Dispositivos(string ARCHIVO)
         {
             return JsonSerializer.Deserialize<List<Modulo_Dispositivo>>(File.ReadAllText(ARCHIVO));
         }
-        static public void Guardar_Dispositivos(string ARCHIVO, List<Modulo_Dispositivo> DISPOSITIVOS)
+        public static void Guardar_Dispositivos(string ARCHIVO, List<Modulo_Dispositivo> DISPOSITIVOS)
         {
             File.WriteAllText(ARCHIVO, JsonSerializer.Serialize(DISPOSITIVOS, new JsonSerializerOptions() { WriteIndented = true }));
         }
-        static public string Extension_Archivo_Botones = "json";
-        static public string Archivo_Botones = "Botones." + Extension_Archivo_Botones;
-        static public List<Modulo_Boton> Obtener_Botones(string ARCHIVO)
+        public static string Extension_Archivo_Botones = "json";
+        public static string Archivo_Botones = "Botones." + Extension_Archivo_Botones;
+        public static List<Modulo_Boton> Obtener_Botones(string ARCHIVO)
         {
             JsonSerializerOptions __OPCIONES = new JsonSerializerOptions() { WriteIndented = true, Converters = { new Color_JsonConverter() } };
             return JsonSerializer.Deserialize<List<Modulo_Boton>>(File.ReadAllText(ARCHIVO), __OPCIONES);
         }
-        static public void Guardar_Botones(string ARCHIVO, List<Modulo_Boton> BOTONES)
+        public static void Guardar_Botones(string ARCHIVO, List<Modulo_Boton> BOTONES)
         {
             JsonSerializerOptions __OPCIONES = new JsonSerializerOptions() { WriteIndented = true, Converters = { new Color_JsonConverter() } };
 
             File.WriteAllText(ARCHIVO, JsonSerializer.Serialize(BOTONES, __OPCIONES));
         }
-        
     }
+
     public class Color_JsonConverter : JsonConverter<Color>
     {
         public override Color Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -96,22 +96,22 @@ namespace System.Windows.Forms
         }
     }
 
-    static public class Mensajes
+    public static class Mensajes
     {
-        static public List<IMensajes> Modulos = new List<IMensajes>();
-        static public DialogResult Pregunta_Cerrar_Formulario(object GENERADOR, string TITULO)
+        public static List<IMensajes> Modulos = new List<IMensajes>();
+        public static DialogResult Pregunta_Cerrar_Formulario(object GENERADOR, string TITULO)
         {
             return MENSAJES.Mostrar_Mensaje(Modulos, new Info_Mensaje(MEN_Tipo.Pregunta, 10, "Cerrar {0}", "¿Está seguro que desea cerrar el formulario '{0}'?", Tipo_Mensaje_Formulario.Formulario_Si_no), GENERADOR, TITULO);
         }
-        static public DialogResult Pregunta_Cerrar_Formulario_Sin_Guardar(object GENERADOR, string TITULO)
+        public static DialogResult Pregunta_Cerrar_Formulario_Sin_Guardar(object GENERADOR, string TITULO)
         {
             return MENSAJES.Mostrar_Mensaje(Modulos, new Info_Mensaje(MEN_Tipo.Pregunta, 10, "Cerrar {0}", "¿Está seguro que desea cerrar el formulario '{0}' sin guardar los cambios?", Tipo_Mensaje_Formulario.Formulario_Si_no), GENERADOR, TITULO);
         }
-        static public DialogResult Mensaje_Detalle_No_Permitido_Agregar(object GENERADOR, string TITULO, string ELEMENTO)
+        public static DialogResult Mensaje_Detalle_No_Permitido_Agregar(object GENERADOR, string TITULO, string ELEMENTO)
         {
             return MENSAJES.Mostrar_Mensaje(Modulos, new Info_Mensaje(MEN_Tipo.Detener, 10, "{0}", "No se puede agregar al detalle.{1}", Tipo_Mensaje_Formulario.Formulario_Ok), GENERADOR, TITULO, ELEMENTO);
         }
-        static public DialogResult Mensaje_Detalle_No_Permitido_Agregar_Ya_Existe(object GENERADOR, string TITULO, string ELEMENTO)
+        public static DialogResult Mensaje_Detalle_No_Permitido_Agregar_Ya_Existe(object GENERADOR, string TITULO, string ELEMENTO)
         {
             return Mensaje_Detalle_No_Permitido_Agregar(GENERADOR, TITULO, Environment.NewLine + ELEMENTO + Environment.NewLine + "Motivo: Ya existe un elemento igual en el detalle.");
         }
@@ -120,14 +120,30 @@ namespace System.Windows.Forms
 
     public class Modulo_Dispositivo : IDetallable
     {
-        static public byte[] R1_O = { 0xA0, 0x01, 0x01, 0xA2 };
-        static public byte[] R1_C = { 0xA0, 0x01, 0x00, 0xA1 };
-        static public byte[] R2_O = { 0xA0, 0x02, 0x01, 0xA3 };
-        static public byte[] R2_C = { 0xA0, 0x02, 0x00, 0xA2 };
-        static public byte[] R3_O = { 0xA0, 0x03, 0x01, 0xA4 };
-        static public byte[] R3_C = { 0xA0, 0x03, 0x00, 0xA3 };
-        static public byte[] R4_O = { 0xA0, 0x04, 0x01, 0xA5 };
-        static public byte[] R4_C = { 0xA0, 0x04, 0x00, 0xA4 };
+        public BackgroundWorker Subproceso = new BackgroundWorker();
+
+        public const int CMD_RELAY_OFF = 0x00;
+        public const int CMD_RELAY_ON = 0x01;
+        public const int CMD_ERROR = 0x02;
+        public const int CMD_VERIFICAR = 0x03;
+
+        public const int CMD_ENVIAR_R1_ON = 0x11;
+        public const int CMD_ENVIAR_R1_OFF = 0x10;
+        public const int CMD_ENVIAR_R2_ON = 0x21;
+        public const int CMD_ENVIAR_R2_OFF = 0x20;
+        public const int CMD_ENVIAR_R3_ON = 0x31;
+        public const int CMD_ENVIAR_R3_OFF = 0x30;
+        public const int CMD_ENVIAR_R4_ON = 0x41;
+        public const int CMD_ENVIAR_R4_OFF = 0x40;
+
+        public static byte[] R1_ON = { 0xA0, 0x01, 0x01, 0xA2 };
+        public static byte[] R1_OFF = { 0xA0, 0x01, 0x00, 0xA1 };
+        public static byte[] R2_ON = { 0xA0, 0x02, 0x01, 0xA3 };
+        public static byte[] R2_OFF = { 0xA0, 0x02, 0x00, 0xA2 };
+        public static byte[] R3_ON = { 0xA0, 0x03, 0x01, 0xA4 };
+        public static byte[] R3_OFF = { 0xA0, 0x03, 0x00, 0xA3 };
+        public static byte[] R4_ON = { 0xA0, 0x04, 0x01, 0xA5 };
+        public static byte[] R4_OFF = { 0xA0, 0x04, 0x00, 0xA4 };
 
         public string Nombre { get; set; }
 
@@ -140,12 +156,12 @@ namespace System.Windows.Forms
         public int Ip3;
 
         public int Ip4;
-        
+
         public string Direccion
         {
             get
             {
-                return Ip1.ToString("000") + "." + Ip2.ToString("000") + "." + Ip3.ToString("000") + "." + Ip4.ToString("000");
+                return Ip1.ToString() + "." + Ip2.ToString() + "." + Ip3.ToString() + "." + Ip4.ToString();
             }
             set
             {
@@ -157,13 +173,17 @@ namespace System.Windows.Forms
             }
         }
 
-        public bool Estado;
+        public int Comando = CMD_ERROR;
+
+        //protected Socket Socalo;
 
         public Modulo_Dispositivo(string NOMBRE, string DIRECCION, int PUERTO)
         {
             Nombre = NOMBRE;
             Direccion = DIRECCION;
             Puerto = PUERTO;
+            Subproceso.DoWork += Subproceso_DoWork;
+            Subproceso.RunWorkerCompleted += Subproceso_RunWorkerCompleted;
         }
 
         public Modulo_Dispositivo(string NOMBRE, string DIRECCION) : this(NOMBRE, DIRECCION, 8080)
@@ -179,99 +199,156 @@ namespace System.Windows.Forms
             return Nombre + " (" + Direccion + ")";
         }
 
-        public string Estado_string()
-        {
-            if (Estado)
-            {
-                return "CONECTADO";
-            }
-            else
-            {
-                return "DESCONECTADO";
-            }
-        }
-
-        public byte[] Obtener_Trama(Relay RELAY, bool ESTADO)
+        public static byte[] Obtener_Trama(Relay RELAY, bool ESTADO)
         {
             switch (RELAY)
             {
                 case Relay.Relay_1:
                     if (ESTADO)
                     {
-                        return R1_C;
+                        return R1_ON;
                     }
                     else
                     {
-                        return R1_O;
+                        return R1_OFF;
                     }
                 case Relay.Relay_2:
                     if (ESTADO)
                     {
-                        return R2_C;
+                        return R2_ON;
                     }
                     else
                     {
-                        return R2_O;
+                        return R2_OFF;
                     }
                 case Relay.Relay_3:
                     if (ESTADO)
                     {
-                        return R3_C;
+                        return R3_ON;
                     }
                     else
                     {
-                        return R3_O;
+                        return R3_OFF;
                     }
                 case Relay.Relay_4:
                     if (ESTADO)
                     {
-                        return R4_C;
+                        return R4_ON;
                     }
                     else
                     {
-                        return R4_O;
+                        return R4_OFF;
                     }
             }
             return new byte[] { };
         }
 
-        public bool Ejecutar_Estado(Relay RELAY, bool ESTADO)
+        public static int Establecer_Comando(Relay RELAY, bool ESTADO)
         {
-            try
+            if (ESTADO)
             {
-                if (!Configuracion.Modo_Demo)
+                switch (RELAY)
                 {
-                    Socket __SOCALO = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    __SOCALO.Connect(Direccion, Puerto);
-                    __SOCALO.Send(Obtener_Trama(RELAY, ESTADO));
-                    __SOCALO.Close();
+                    case Relay.Relay_1:
+                        return CMD_ENVIAR_R1_ON;
+                    case Relay.Relay_2:
+                        return CMD_ENVIAR_R2_ON;
+                    case Relay.Relay_3:
+                        return CMD_ENVIAR_R3_ON;
+                    case Relay.Relay_4:
+                        return CMD_ENVIAR_R4_ON;
                 }
-                Estado = true;
             }
-            catch (Exception)
+            else
             {
-                Estado = false;
+                switch (RELAY)
+                {
+                    case Relay.Relay_1:
+                        return CMD_ENVIAR_R1_OFF;
+                    case Relay.Relay_2:
+                        return CMD_ENVIAR_R2_OFF;
+                    case Relay.Relay_3:
+                        return CMD_ENVIAR_R3_OFF;
+                    case Relay.Relay_4:
+                        return CMD_ENVIAR_R4_OFF;
+                }
             }
-            return Estado;
+            return CMD_ERROR;
         }
 
-        public bool Obtener_Estado()
+        public void Subproceso_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                if (!Configuracion.Modo_Demo)
+                Socket Socalo = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                Socalo.Connect(Direccion, Puerto);
+                switch (Comando)
                 {
-                    Socket __SOCALO = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    __SOCALO.Connect(Direccion, Puerto);
-                    __SOCALO.Close();
+                    case CMD_VERIFICAR:
+                        break;
+                    case CMD_ENVIAR_R1_OFF:
+                        Socalo.Send(Obtener_Trama(Relay.Relay_1, false));
+                        Comando = CMD_RELAY_OFF;
+                        break;
+                    case CMD_ENVIAR_R1_ON:
+                        Socalo.Send(Obtener_Trama(Relay.Relay_1, true));
+                        Comando = CMD_RELAY_ON;
+                        break;
+                    case CMD_ENVIAR_R2_OFF:
+                        Socalo.Send(Obtener_Trama(Relay.Relay_2, false));
+                        Comando = CMD_RELAY_OFF;
+                        break;
+                    case CMD_ENVIAR_R2_ON:
+                        Socalo.Send(Obtener_Trama(Relay.Relay_2, true));
+                        Comando = CMD_RELAY_ON;
+                        break;
+                    case CMD_ENVIAR_R3_OFF:
+                        Socalo.Send(Obtener_Trama(Relay.Relay_3, false));
+                        Comando = CMD_RELAY_OFF;
+                        break;
+                    case CMD_ENVIAR_R3_ON:
+                        Socalo.Send(Obtener_Trama(Relay.Relay_3, true));
+                        Comando = CMD_RELAY_ON;
+                        break;
+                    case CMD_ENVIAR_R4_OFF:
+                        Socalo.Send(Obtener_Trama(Relay.Relay_4, false));
+                        Comando = CMD_RELAY_OFF;
+                        break;
+                    case CMD_ENVIAR_R4_ON:
+                        Socalo.Send(Obtener_Trama(Relay.Relay_4, true));
+                        Comando = CMD_RELAY_ON;
+                        break;
                 }
-                Estado = true;
+                Socalo.Close();
+                Socalo.Dispose();
             }
-            catch (Exception)
+            catch (Exception A)
             {
-                Estado = false;
+                Comando = CMD_ERROR;
+                MessageBox.Show(A.Message);
             }
-            return Estado;
+            e.Result = e.Argument;
+        }
+
+        public void Subproceso_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Result is Boton_Relay _BOTON)
+            {
+                _BOTON.Cursor = Cursors.Default;
+                switch (Comando)
+                {
+                    case CMD_ERROR:
+                        _BOTON.Estado = false;
+                        break;
+                    case CMD_RELAY_ON:
+                        _BOTON.Estado = true;
+                        break;
+                    case CMD_RELAY_OFF:
+                        _BOTON.Estado = false;
+                        break;
+                }
+                _BOTON.Aplicar_Estado();
+            }
         }
         //IDetallable
         public const int Indice_Nombre = 0;
@@ -279,7 +356,7 @@ namespace System.Windows.Forms
         public const int Indice_Puerto = 2;
         public const int Indice_Estado = 3;
 
-        static public void Cargar_DatagridviewColumns(DetalleDataGridView DATAGRIDVIEW, EventHandler<DetalleDataGridViewEventArgs> METODO_AGREGAR, EventHandler<DetalleDataGridViewEventArgs> METODO_MODIFICAR)
+        public static void Cargar_DatagridviewColumns(DetalleDataGridView DATAGRIDVIEW, EventHandler<DetalleDataGridViewEventArgs> METODO_AGREGAR, EventHandler<DetalleDataGridViewEventArgs> METODO_MODIFICAR)
         {
             DATAGRIDVIEW.ReadOnly = true;
             DATAGRIDVIEW.MultiSelect = false;
@@ -305,7 +382,7 @@ namespace System.Windows.Forms
         }
         [JsonIgnore]
         public int Indice_Fila { get; set; }
-        
+
         public string Obtener_Elemento()
         {
             return "El Dispositivo: " + ToString();
@@ -366,7 +443,7 @@ namespace System.Windows.Forms
 
         public void Actualizar_Objeto(DetalleDataGridView DATAGRIDVIEW, int INDICE_COLUMNA)
         {
-            
+
         }
 
         public bool Validar_Fila()
@@ -411,9 +488,8 @@ namespace System.Windows.Forms
 
     public class Boton_Relay : Button_Key
     {
-        static public Estado_Boton Desconectado = new Estado_Boton("OFFLINE", Color.Gray, Color.DarkGray);
-        static public Estado_Boton Error = new Estado_Boton("ERROR", Color.Maroon, Color.DarkGray);
-        public BackgroundWorker Subproceso = new BackgroundWorker();
+        public static Estado_Boton Desconectado = new Estado_Boton("OFFLINE", Color.Gray, Color.DarkGray);
+        public static Estado_Boton Error = new Estado_Boton("ERROR", Color.Maroon, Color.DarkGray);
         public Modulo_Dispositivo Dispositivo = null;
         public Relay Relay = Relay.Relay_1;
         public bool Estado = false;
@@ -434,8 +510,6 @@ namespace System.Windows.Forms
         {
             UseVisualStyleBackColor = true;
             TextImageRelation = TextImageRelation.ImageAboveText;
-            Subproceso.DoWork += Subproceso_DoWork;
-            Subproceso.RunWorkerCompleted += Subproceso_RunWorkerCompleted;
             ContextMenuStrip = MENU;
             Cargar_Modulo(MODULO);
         }
@@ -474,38 +548,21 @@ namespace System.Windows.Forms
             }
         }
 
-        private void Subproceso_DoWork(object sender, DoWorkEventArgs e)
-        {
-            if ((bool)e.Argument)
-            {
-                Estado = Ejecutar_Estado();
-            }
-            else
-            {
-                Estado = Obtener_Estado();
-            }
-        }
-
-        private void Subproceso_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            Cursor = Cursors.Default;
-            Aplicar_Estado();
-        }
-
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
-            if (Modo_Demo)
+            if (Modo_Demo || Configuracion.Modo_Demo || Dispositivo == null)
             {
                 Estado = !Estado;
                 Aplicar_Estado();
             }
             else
             {
-                if (!Subproceso.IsBusy)
+                if (!Dispositivo.Subproceso.IsBusy)
                 {
                     Cursor = Cursors.WaitCursor;
-                    Subproceso.RunWorkerAsync(true);
+                    Dispositivo.Comando = Modulo_Dispositivo.Establecer_Comando(Relay, !Estado);
+                    Dispositivo.Subproceso.RunWorkerAsync(this);
                 }
             }
         }
@@ -548,7 +605,7 @@ namespace System.Windows.Forms
                 Estado = false;
                 Aplicar_Estado(Error);
             }
-            else if (!Dispositivo.Estado)
+            else if (!Modo_Demo && !Configuracion.Modo_Demo && Dispositivo.Comando == Modulo_Dispositivo.CMD_ERROR)
             {
                 Estado = false;
                 Aplicar_Estado(Desconectado);
@@ -558,6 +615,7 @@ namespace System.Windows.Forms
                 if (Estado)
                 {
                     Aplicar_Estado(Activado);
+
                 }
                 else
                 {
@@ -566,37 +624,20 @@ namespace System.Windows.Forms
             }
         }
 
-        public bool Ejecutar_Estado()
-        {
-            if (Dispositivo != null)
-            {
-                if (Dispositivo.Ejecutar_Estado(Relay, Estado))
-                {
-                    return !Estado;
-                }
-            }
-            return false;
-        }
-
-        public bool Obtener_Estado()
-        {
-            if (Dispositivo != null)
-            {
-                if (Dispositivo.Obtener_Estado())
-                {
-                    return Estado;
-                }
-            }
-            return false;
-        }
-
         public void Obtener_Estado_Asincrono()
         {
-            if (!Subproceso.IsBusy)
+            if (!Dispositivo.Subproceso.IsBusy)
             {
                 Cursor = Cursors.WaitCursor;
-                Subproceso.RunWorkerAsync(false);
+                Dispositivo.Comando = Modulo_Dispositivo.CMD_VERIFICAR;
+                Dispositivo.Subproceso.RunWorkerAsync(this);
             }
+        }
+
+        public void Obtener_Estado_Sincrono()
+        {
+            Dispositivo.Comando = Modulo_Dispositivo.CMD_VERIFICAR;
+            Dispositivo.Subproceso_DoWork(Dispositivo, new DoWorkEventArgs(this));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Botonera_Relays
 {
@@ -11,7 +11,7 @@ namespace Botonera_Relays
         public Editor_Boton_Relay()
         {
             InitializeComponent();
-            demo_boton_Relay.Dispositivo = new Modulo_Dispositivo() { Estado = true };
+            demo_boton_Relay.Dispositivo = new Modulo_Dispositivo() { };
             demo_boton_Relay.Modo_Demo = true;
             dispositivo_comboBox.DisplayMember = "Nombre";
             dispositivo_comboBox.Items.AddRange(Configuracion.Dispositivos.ToArray());
@@ -55,7 +55,7 @@ namespace Botonera_Relays
         {
             Boton.Nombre = nombre_textBox.Text;
             Boton.Dispositivo = Configuracion.Dispositivos[dispositivo_comboBox.SelectedIndex].Nombre;
-            Boton.Relay =((Relay)relay_comboBox.SelectedIndex);
+            Boton.Relay = ((Relay)relay_comboBox.SelectedIndex);
             if (ancho_intBox.Ok && alto_intBox.Ok)
             {
                 Boton.Tamanio = new Size(ancho_intBox.Valor, alto_intBox.Valor);
@@ -70,7 +70,7 @@ namespace Botonera_Relays
 
         private void Boton_Aceptar(object sender, EventArgs e)
         {
-            if(dispositivo_comboBox.SelectedIndex == -1)
+            if (dispositivo_comboBox.SelectedIndex == -1)
             {
                 Mensajes.Mensaje_Detalle_No_Permitido_Agregar(this, Text, "");
                 return;
@@ -88,7 +88,7 @@ namespace Botonera_Relays
 
         private void Tamanio_TextChanged(object sender, EventArgs e)
         {
-            if(ancho_intBox.Ok && alto_intBox.Ok)
+            if (ancho_intBox.Ok && alto_intBox.Ok)
             {
                 demo_boton_Relay.Size = new Size(ancho_intBox.Valor, alto_intBox.Valor);
             }
